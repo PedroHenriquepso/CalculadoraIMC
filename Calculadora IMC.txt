@@ -1,0 +1,47 @@
+from termcolor import colored
+
+def calcular_imc(peso, altura):
+    imc = peso / (altura ** 2)
+    return imc
+
+def classificar_imc(imc):
+    if imc < 17:
+        return "Muito abaixo do peso", "red"
+    elif imc <= 18.49:
+        return "Abaixo do peso", "yellow"
+    elif imc <= 24.99:
+        return "Peso normal", "green"
+    elif imc <= 29.99:
+        return "Acima do peso", "yellow"
+    elif imc <= 34.99:
+        return "Obesidade I", "red"
+    elif imc <= 39.99:
+        return "Obesidade II (severa)", "magenta"
+    else:
+        return "Obesidade III (mórbida)", "black"
+
+opcao = 'S'  # Inicialize opcao para que o loop while funcione
+
+while opcao == 'S':
+    # Título em um retângulo colorido
+    titulo = "Calculadora de IMC"
+    tamanho = len(titulo)
+    print(colored('-' * (tamanho + 4), 'cyan'))
+    print(colored('| ' + titulo + ' |', 'cyan'))
+    print(colored('-' * (tamanho + 4), 'cyan'))
+
+    peso = float(input('Qual é o seu peso (em kg)? '))
+    altura = float(input('Qual é a sua altura (em metros)? '))
+
+    formula = calcular_imc(peso, altura)
+    classificacao, cor = classificar_imc(formula)
+
+    print('Seu índice de massa corporal é de {:.2f}'.format(formula))
+    print(colored('Você está classificado como "{}"'.format(classificacao), cor))
+    
+    opcao = input('Deseja repetir? [S/N]: ').strip().upper()
+
+if opcao == 'N':
+    print('Obrigado por usar a Calculadora de IMC. Volte sempre.')
+else:
+    print('Opção inválida. O programa será encerrado.')
